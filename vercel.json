@@ -1,0 +1,8 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npx prisma generate && next build",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "ANTHROPIC_API_KEY": "@anthropic_api_key"
+  }
+}
