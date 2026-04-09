@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Claim {
+  id              String   @id @default(cuid())
+  rawText         String
+  policyNumber    String?
+  claimantName    String?
+  claimType       String?
+  amount          Float?
+  incidentDate    String?
+  description     String?
+  classification  String
+  confidence      Float
+  needsHumanReview Boolean @default(false)
+  status          String   @default("pending")
+  processingTime  Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  feedbacks       Feedback[]
+
+  @@map("claims")
+}
+
+model Feedback {
+  id                    String   @id @default(cuid())
+  claimId               String
+  claim                 Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  originalClassification String
+  correctedClassification String
+  correctedPolicyNumber  String?
+  correctedAmount        Float?
+  correctedClaimType     String?
+  agentId               String?
+  notes                 String?
+  createdAt             DateTime @default(now())
+
+  @@map("feedbacks")
+}
+
+model AnalyticsSnapshot {
+  id              String   @id @default(cuid())
+  date            DateTime @default(now())
+  totalClaims     Int
+  autoResolved    Int
+  flagged         Int
+  rejected        Int
+  avgConfidence   Float
+  avgProcessingMs Int
+
+  @@map("analytics_snapshots")
+}
