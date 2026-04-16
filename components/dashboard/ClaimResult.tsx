@@ -196,7 +196,7 @@ export function ClaimResult({ claim, onFeedbackSubmitted }: ClaimResultProps) {
 
     try {
       await fetch("/api/feedback", {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           claimId: claim.id,
