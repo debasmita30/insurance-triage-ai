@@ -52,7 +52,7 @@ export function ClaimInput({ onClaimAnalyzed }: ClaimInputProps) {
 
     try {
       const res = await fetch("/api/analytics", {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rawText: text }),
       });
