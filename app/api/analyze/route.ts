@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     })
 
   catch (error: any) {
-  console.error("Analyze error FULL:", error)
+    console.error("Analyze error FULL:", error)
 
   return NextResponse.json(
     {
