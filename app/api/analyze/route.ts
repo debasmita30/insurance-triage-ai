@@ -44,13 +44,15 @@ export async function POST(req: NextRequest) {
       analysis: result,
     })
 
-  } catch (error) {
-    return NextResponse.json(
-      {
-        error: "Failed to analyze claim",
-        details: String(error),
-      },
-      { status: 500 }
-    )
-  }
+  catch (error: any) {
+  console.error("Analyze error FULL:", error)
+
+  return NextResponse.json(
+    {
+      error: "Failed to analyze claim",
+      details: error?.message || String(error),
+      stack: error?.stack || null,
+    },
+    { status: 500 }
+  )
 }
